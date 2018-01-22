@@ -4,7 +4,6 @@ import * as path from 'path';
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
-import * as url from 'url';
 
 if (serve) {
   require('electron-reload')(__dirname, {
@@ -16,20 +15,22 @@ function createWindow() {
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
+  //Definindo centro da tela principal
+  let bounds = screen.getPrimaryDisplay().bounds;
+  let x = bounds.x + ((bounds.width - 350) / 2);
+  let y = bounds.y + ((bounds.height - 500) / 2);
   // Create the browser window.
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height
+    x: x,
+    y: y,
+    width: 350,
+    height: 500,
+    center: true,
+    frame:false
   });
 
   // and load the index.html of the app.
-  win.loadURL(url.format({
-    protocol: 'file:',
-    pathname: path.join(__dirname, '/index.html'),
-    slashes:  true
-  }));
+  win.loadURL('file://' + __dirname + '/index.html');
 
   // Open the DevTools.
   if (serve) {
