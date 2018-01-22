@@ -1,5 +1,34 @@
+<div id="header">
+  <span class="close" (click)="close()"></span>
+ </div>
 <div class="container">
+
   <h1 class="title">
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
+        <table>
+        <thead>
+          <th colspan="2" class="table-header">Task to do</th>
+        </thead>
+        <tbody>
+<tr *ngFor="let entry of eventToDoList">
+    <td class="radioitem">
+        <input type="radio"  [id]="'radio'+entry.id" name="radiogroup"
+            [checked]="entry.id === selectedEventTodo.id" 
+            [value]="entry.id" 
+            (change)="onSelectionChange(entry)"/>
+    </td>
+        <td><label [ngClass]="{
+    'radio-label-checked':entry.id === selectedEventTodo.id,
+    'radio-label':entry.id !== selectedEventTodo.id
+  }"
+   [for]="'radio'+entry.id"> {{ entry.description }} </label> </td>
+</tr>
+        </tbody>
+      </table>
+      <div class="form-box">
+              <input class="minutes-input" type="number" [(ngModel)]="minutes" name="minutes"/>
+      <input class="submit-button" type="button" value="doTheThing" name="do" (click)="doYourThing()"/>
+      </div>
+
 </div>
