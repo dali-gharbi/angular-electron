@@ -1,6 +1,0 @@
-{
-    "main": "./keybd_event.js",
-    "name": "keybd_event",
-    "description": "keybd_event",
-    "version": "0.1.0"
-}

@@ -37,11 +37,11 @@ function createWindow() {
   // Open the DevTools.
   if (serve) {
     win.webContents.openDevTools();
-    // const keybd_event = require('./addons/keybd_event');
-    // keybd_event((msg) => {
-    //   console.log(msg);
-    //   // Prints: 'hello world'
-    // });
+    const keybd_event = require('keybd_event');
+    keybd_event((msg) => {
+      console.log(msg);
+      // Prints: 'hello world'
+    });
   }
 
   // Emitted when the window is closed.

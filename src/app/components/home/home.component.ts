@@ -17,11 +17,11 @@ export class HomeComponent implements OnInit {
     constructor(private zone: NgZone, private electronService: ElectronService) {
         if (this.isElectron()) {
             this.shutdownCmd = window.require('electron-shutdown-command');
-            const keybd_event = window.require('addons/keybd_event.js');
-            keybd_event((msg) => {
-                console.log(msg);
-                // Prints: 'hello world'
-            });
+            // const keybd_event = window.require('addons/keybd_event.js');
+            // keybd_event((msg) => {
+            //     console.log(msg);
+            //     // Prints: 'hello world'
+            // });
             // const test = window.require('../../../cpp-addons/build/Release/keybd_event.node');
             // keybd_event((msg) => {
             //     console.log(msg);
