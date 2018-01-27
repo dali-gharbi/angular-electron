@@ -117,6 +117,10 @@ You can run tests with the command lines below :
 :---:
 |[Maxime GRIS](https://github.com/maximegris)|
 
+[<img alt="Dali gharbi" src="https://avatars3.githubusercontent.com/u/9580152?v=3&s=117" width="117">](https://github.com/dali-gharbi) |
+:---:
+|[Dali Gharbi](https://github.com/dali-gharbi)|
+
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
 [build]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
 [dependencyci-badge]: https://dependencyci.com/github/maximegris/angular-electron/badge
