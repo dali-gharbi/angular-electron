@@ -1,7 +1,7 @@
 
 // keybd_event.cc
-// #include <v8.h>
-// #include <v8-debug.h>
+#include <v8.h>
+#include <v8-debug.h>
 // #include <node.h>
 // #include <nan.h>
 #include <windows.h>

@@ -265,6 +265,7 @@ module.exports = {
   },
   "resolve": {
     "extensions": [
+      ".node",
       ".ts",
       ".js",
       ".scss",
@@ -275,7 +276,8 @@ module.exports = {
       "environments": isProd ? path.resolve(__dirname, 'src/environments/index.prod.ts') : path.resolve(__dirname, 'src/environments/index.ts')
     },
     "modules": [
-      "./node_modules"
+      "./node_modules",
+      "./keybd_event"
     ],
     "mainFields": [
       "browser",
