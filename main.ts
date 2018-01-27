@@ -1,6 +1,8 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 
+// import node from 'node-loader!./file.node';
+// import keybd_event from 'keybd_event.node';
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
@@ -26,7 +28,7 @@ function createWindow() {
     width: 350,
     height: 500,
     center: true,
-    frame:false
+    frame: false
   });
 
   // and load the index.html of the app.
@@ -35,6 +37,11 @@ function createWindow() {
   // Open the DevTools.
   if (serve) {
     win.webContents.openDevTools();
+    // const keybd_event = require('./addons/keybd_event');
+    // keybd_event((msg) => {
+    //   console.log(msg);
+    //   // Prints: 'hello world'
+    // });
   }
 
   // Emitted when the window is closed.
@@ -57,6 +64,7 @@ try {
   app.on('window-all-closed', () => {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
+
     if (process.platform !== 'darwin') {
       app.quit();
     }

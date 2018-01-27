@@ -91,6 +91,7 @@
     "less-loader": "4.0.5",
     "minimist": "1.2.0",
     "mkdirp": "0.5.1",
+    "node-addon-loader": "0.0.3",
     "npm-run-all": "4.1.1",
     "npx": "9.7.1",
     "postcss-loader": "2.0.6",

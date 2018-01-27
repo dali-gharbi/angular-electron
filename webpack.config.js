@@ -16,6 +16,7 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const ConcatPlugin = require('webpack-concat-plugin');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
+// const baspath = { basePath: nodeModules };
 const realNodeModules = fs.realpathSync(nodeModules);
 const genDirNodeModules = path.join(process.cwd(), 'src', '$$_gendir', 'node_modules');
 const entryPoints = ["inline", "polyfills", "sw-register", "styles", "vendor", "main"];
@@ -27,35 +28,35 @@ const postcssPlugins = function () {
   // safe settings based on: https://github.com/ben-eb/cssnano/issues/358#issuecomment-283696193
   const importantCommentRe = /@preserve|@license|[@#]\s*source(?:Mapping)?URL|^!/i;
   const minimizeOptions = {
-      autoprefixer: false,
-      safe: true,
-      mergeLonghand: false,
-      discardComments: { remove: (comment) => !importantCommentRe.test(comment) }
+    autoprefixer: false,
+    safe: true,
+    mergeLonghand: false,
+    discardComments: { remove: (comment) => !importantCommentRe.test(comment) }
   };
   return [
-      postcssUrl({
-          url: (obj) => {
-            if (!obj.url.startsWith('/') || obj.url.startsWith('//')) {
-              return obj.url;
-            }
-            if (deployUrl.match(/:\/\//)) {
-              // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
-              return `${deployUrl.replace(/\/$/, '')}${obj.url}`;
-            }
-            else if (baseHref.match(/:\/\//)) {
-              // If baseHref contains a scheme, include it as is.
-              return baseHref.replace(/\/$/, '') +
-                `/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
-            }
-            else {
-              // Join together base-href, deploy-url and the original URL.
-              // Also dedupe multiple slashes into single ones.
-              return `/${baseHref}/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
-            }
-          }
-      }),
-      autoprefixer(),
-      customProperties({ preserve: true })
+    postcssUrl({
+      url: (obj) => {
+        if (!obj.url.startsWith('/') || obj.url.startsWith('//')) {
+          return obj.url;
+        }
+        if (deployUrl.match(/:\/\//)) {
+          // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
+          return `${deployUrl.replace(/\/$/, '')}${obj.url}`;
+        }
+        else if (baseHref.match(/:\/\//)) {
+          // If baseHref contains a scheme, include it as is.
+          return baseHref.replace(/\/$/, '') +
+            `/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
+        }
+        else {
+          // Join together base-href, deploy-url and the original URL.
+          // Also dedupe multiple slashes into single ones.
+          return `/${baseHref}/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
+        }
+      }
+    }),
+    autoprefixer(),
+    customProperties({ preserve: true })
   ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
 };
 
@@ -116,11 +117,11 @@ function getPlugins() {
       }
     }
   ], {
-    "ignore": [
-      ".gitkeep"
-    ],
-    "debug": "warning"
-  }));
+      "ignore": [
+        ".gitkeep"
+      ],
+      "debug": "warning"
+    }));
 
   plugins.push(new ProgressPlugin());
 
@@ -174,11 +175,11 @@ function getPlugins() {
       "vendor"
     ],
     "minChunks": (module) => {
-              return module.resource
-                  && (module.resource.startsWith(nodeModules)
-                      || module.resource.startsWith(genDirNodeModules)
-                      || module.resource.startsWith(realNodeModules));
-          },
+      return module.resource
+        && (module.resource.startsWith(nodeModules)
+          || module.resource.startsWith(genDirNodeModules)
+          || module.resource.startsWith(realNodeModules));
+    },
     "chunks": [
       "main"
     ]
@@ -304,6 +305,13 @@ module.exports = {
   },
   "module": {
     "rules": [
+      {
+        "test": /\.node$/,
+        "use": 'node-addon-loader',
+        // "options": [
+        //    "basePath": nodeModules 
+        // ]
+      },
       {
         "test": /\.html$/,
         "use": ["html-loader"]
@@ -468,7 +476,7 @@ module.exports = {
         ]
       },
       {
-        "include":style_paths,
+        "include": style_paths,
         "test": /\.less$/,
         "use": [
           "style-loader",
